@@ -39,8 +39,9 @@ app.get("/", (req, res) => {
     <div class="card p-4">
       <h2 class="text-center mb-3">🔒 Secret Message Box</h2>
       <p class="text-center text-muted">
-        Shhh... 🤫 Type your secret below.<br>
-        Nobody will ever know it’s you... or will they? 👀
+        Type your anonymous msg to Me.<br>
+        I will never know who are you 😅
+        
       </p>
       <form action="/send" method="POST">
         <div class="mb-3">
@@ -91,3 +92,4 @@ app.get("/ghost123", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
