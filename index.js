@@ -6,19 +6,19 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Body parser (built into express)
+// Body parser
 app.use(express.urlencoded({ extended: true }));
 
 // ---------- MongoDB connect ----------
-const mongoUri = process.env.MONGODB_URI; // set this in .env or Render/Platform env
+const mongoUri = process.env.MONGODB_URI;
 if (!mongoUri) {
   console.error('⚠️  WARNING: MONGODB_URI is not set. Set it in .env or platform env vars.');
 }
 
-mongoose
-  .connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('✅ MongoDB connected'))
-  .catch((err) => console.error('❌ MongoDB connection error:', err && err.message ? err.message : err));
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connection.once('open', () => console.log('✅ MongoDB connection open'));
+mongoose.connection.on('error', (err) => console.error('❌ MongoDB connection error:', err));
 
 // ---------- Schema ----------
 const messageSchema = new mongoose.Schema({
@@ -110,7 +110,8 @@ app.post('/send', async (req, res) => {
   const sender = randomSender();
 
   try {
-    await Message.create({ text: safeText, sender });
+    const saved = await Message.create({ text: safeText, sender });
+    console.log('Message saved:', saved);
   } catch (err) {
     console.error('DB save error:', err);
   }
@@ -124,10 +125,12 @@ app.post('/send', async (req, res) => {
   `));
 });
 
+// ---------- Debugged Ghost Archive ----------
 app.get('/ghost123', async (req, res) => {
   let items = [];
   try {
     items = await Message.find().sort({ time: -1 }).limit(200);
+    console.log('Fetched items:', items.length);
   } catch (err) {
     console.error('DB read error:', err);
   }
@@ -146,7 +149,6 @@ app.get('/ghost123', async (req, res) => {
       <h2 class="mb-1 text-center">👻 Ghost Archive of Secrets</h2>
       <p class="text-center small-note">Only the chosen ones see this.</p>
       <div style="margin-top:12px;">${list}</div>
-     
     </div>
   `));
 });
@@ -155,4 +157,3 @@ app.get('/ghost123', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
-
