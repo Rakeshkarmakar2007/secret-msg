@@ -134,11 +134,11 @@ app.get('/ghost123', async (req, res) => {
   } catch (err) {
     console.error('DB read error:', err);
   }
-
+  let i = 1;
   const list = items.length
     ? items.map(m => `
         <div class="msg">
-          <p style="margin:6px 0;">${m.text}</p>
+          <p style="margin:6px 0;">${i++} -> ${m.text}</p>
         </div>
       `).join('')
     : `<h4 class='text-muted text-center'>No messages yet</h4>`;
@@ -155,5 +155,6 @@ app.get('/ghost123', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
 
 
