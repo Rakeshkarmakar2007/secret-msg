@@ -119,7 +119,7 @@ app.post('/send', async (req, res) => {
   res.send(pageWrapper(`
     <div class="card p-4 text-center">
       <h3 class="text-success">✅ Your secret has been sent anonymously!</h3>
-      <p class="small-note">Sender assigned: <b>${sender}</b></p>
+      <p class="small-note">Sender assigned: <b></b></p>
       <a href="/" class="btn btn-primary mt-2">Send another</a>
     </div>
   `));
@@ -138,7 +138,7 @@ app.get('/ghost123', async (req, res) => {
   const list = items.length
     ? items.map(m => `
         <div class="msg">
-          <div class="meta">${m.sender} • 🕒 ${new Date(m.time).toLocaleString()}</div>
+          <div class="meta"> 🕒 ${new Date(m.time).toLocaleString()}</div>
           <p style="margin:6px 0;">${m.text}</p>
         </div>
       `).join('')
@@ -146,8 +146,7 @@ app.get('/ghost123', async (req, res) => {
 
   res.send(pageWrapper(`
     <div class="card p-4">
-      <h2 class="mb-1 text-center">👻 Ghost Archive of Secrets</h2>
-      <p class="text-center small-note">Only the chosen ones see this.</p>
+      <h2 class="mb-1 text-center"> Archive of Secret messeges</h2>
       <div style="margin-top:12px;">${list}</div>
     </div>
   `));
@@ -157,3 +156,4 @@ app.get('/ghost123', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
