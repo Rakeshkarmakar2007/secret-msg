@@ -91,10 +91,6 @@ app.get('/', (req, res) => {
           <button type="submit" class="btn btn-primary btn-lg">Send Secret</button>
         </div>
       </form>
-      <div class="text-center mt-3">
-        <a href="/ghost123" class="btn btn-outline-secondary btn-sm">📜 View Secrets (for the chosen ones)</a>
-      </div>
-      <p class="text-center mt-3 text-muted" style="font-size:0.88rem;">⚡ Warning: Sending too many secrets may summon the <b>Ghost of Debugging</b> 👻</p>
     </div>
   `));
 });
@@ -150,9 +146,7 @@ app.get('/ghost123', async (req, res) => {
       <h2 class="mb-1 text-center">👻 Ghost Archive of Secrets</h2>
       <p class="text-center small-note">Only the chosen ones see this.</p>
       <div style="margin-top:12px;">${list}</div>
-      <div class="text-center mt-3">
-        <a href="/" class="btn btn-outline-primary">➕ Add New</a>
-      </div>
+     
     </div>
   `));
 });
@@ -161,3 +155,4 @@ app.get('/ghost123', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
