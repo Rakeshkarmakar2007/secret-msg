@@ -138,7 +138,6 @@ app.get('/ghost123', async (req, res) => {
   const list = items.length
     ? items.map(m => `
         <div class="msg">
-          <div class="meta"> 🕒 ${new Date(m.time).toLocaleString()}</div>
           <p style="margin:6px 0;">${m.text}</p>
         </div>
       `).join('')
@@ -156,4 +155,5 @@ app.get('/ghost123', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
 
